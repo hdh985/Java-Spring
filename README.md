@@ -1,173 +1,52 @@
-# 📌 Java & Spring 기초 문법 정리
+# 📚 Spring & Java 학습 기록
 
-> Java와 Spring에서 자주 사용되는 문법을 예제와 함께 정리한 문서입니다.
+> Spring Framework와 Java의 핵심 문법 및 실습을 정리한 학습 레포지토리입니다.  
+> 웹 백엔드 개발자로 성장하기 위한 기초 역량을 다지기 위해 제작되었습니다.
 
-## 🚀 Java 기본 문법
+---
 
-### 1️⃣ 변수와 데이터 타입
-```java
-public class Variables {
-    public static void main(String[] args) {
-        int number = 10;
-        double pi = 3.14;
-        boolean isTrue = true;
-        char letter = 'A';
-        String text = "Hello, Java!";
-        
-        System.out.println(number);
-        System.out.println(pi);
-        System.out.println(isTrue);
-        System.out.println(letter);
-        System.out.println(text);
-    }
-}
-```
+## 🎯 학습 목표
 
-### 2️⃣ 조건문 (if, else if, else)
-```java
-public class Conditionals {
-    public static void main(String[] args) {
-        int num = 10;
-        
-        if (num > 0) {
-            System.out.println("양수입니다.");
-        } else if (num < 0) {
-            System.out.println("음수입니다.");
-        } else {
-            System.out.println("0입니다.");
-        }
-    }
-}
-```
+- Java의 기초 문법 및 객체지향 프로그래밍 개념 이해
+- Spring Boot 기반의 웹 애플리케이션 구조 및 작동 방식 습득
+- REST API 설계 및 데이터 처리 흐름 이해 (Controller → Service → Repository → Entity)
+- MySQL과 연동하여 간단한 CRUD 기능 구현
 
-### 3️⃣ 반복문 (for, while, do-while)
-```java
-public class Loops {
-    public static void main(String[] args) {
-        for (int i = 0; i < 5; i++) {
-            System.out.println("for 반복: " + i);
-        }
+---
 
-        int j = 0;
-        while (j < 5) {
-            System.out.println("while 반복: " + j);
-            j++;
-        }
-        
-        int k = 0;
-        do {
-            System.out.println("do-while 반복: " + k);
-            k++;
-        } while (k < 5);
-    }
-}
-```
+## 📌 학습 내용
 
-### 4️⃣ 배열
-```java
-public class Arrays {
-    public static void main(String[] args) {
-        int[] numbers = {1, 2, 3, 4, 5};
-        
-        for (int num : numbers) {
-            System.out.println(num);
-        }
-    }
-}
-```
+### 🔸 Java 기본 문법
+- 변수, 데이터 타입, 조건문, 반복문
+- 배열과 객체 지향 프로그래밍 (클래스, 생성자, 메서드)
 
-### 5️⃣ 클래스와 객체
-```java
-class Person {
-    String name;
-    int age;
+### 🔸 Spring Boot 기초
+- 프로젝트 구조 이해
+- REST API 구현 (GET, POST)
+- Controller, Service, Repository, Entity 계층 분리
+- Spring Data JPA 기반의 DB 연동
+- application.yml 설정을 통한 환경 구성
 
-    public Person(String name, int age) {
-        this.name = name;
-        this.age = age;
-    }
+---
 
-    public void introduce() {
-        System.out.println("안녕하세요, 저는 " + name + "이고 " + age + "살입니다.");
-    }
-}
+## 🧪 실습 예제
 
-public class OOP {
-    public static void main(String[] args) {
-        Person person1 = new Person("Alice", 25);
-        person1.introduce();
-    }
-}
-```
+- `HelloController.java`: 간단한 인사 메시지를 반환하는 REST API
+- `UserService.java`: 사용자 정보 반환 로직 예제
+- `UserRepository.java`: JPA를 활용한 Repository 인터페이스 정의
+- `User.java`: Entity 객체 정의 및 DB 매핑
+- `application.yml`: MySQL 연동 및 서버 설정
 
-## 🚀 Spring Boot 기본 문법
+---
 
-### 1️⃣ Spring Boot 프로젝트 구조
-```
-프로젝트명/
-├── src/
-│   ├── main/java/com/example/
-│   │   ├── controller/   # 컨트롤러
-│   │   ├── service/      # 서비스
-│   │   ├── repository/   # 레포지토리
-│   │   ├── entity/       # 엔티티
-│   │   ├── Application.java  # 메인 애플리케이션
-│   ├── resources/
-│   │   ├── application.yml  # 설정 파일
-```
+## 🛠 기술 스택
 
-### 2️⃣ Controller 예제
-```java
-@RestController
-@RequestMapping("/api")
-public class HelloController {
-    @GetMapping("/hello")
-    public String sayHello() {
-        return "Hello, Spring Boot!";
-    }
-}
-```
+- Java 17
+- Spring Boot 3.x
+- Spring Web / Spring Data JPA
+- MySQL
+- Gradle
 
-### 3️⃣ Service 예제
-```java
-@Service
-public class UserService {
-    public String getUserInfo() {
-        return "사용자 정보";
-    }
-}
-```
+---
 
-### 4️⃣ Repository 예제
-```java
-@Repository
-public interface UserRepository extends JpaRepository<User, Long> {
-}
-```
-
-### 5️⃣ Entity 예제
-```java
-@Entity
-@Table(name = "users")
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    private String email;
-}
-```
-
-### 6️⃣ application.yml 설정 예제
-```yaml
-server:
-  port: 8080
-spring:
-  datasource:
-    url: jdbc:mysql://localhost:3306/mydb
-    username: root
-    password: password
-  jpa:
-    hibernate:
-      ddl-auto: update
-```
+## 📂 프로젝트 구조 예시
