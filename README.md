@@ -11,7 +11,7 @@
 - Spring Boot 기반의 웹 애플리케이션 구조 및 작동 방식 습득
 - REST API 설계 및 데이터 처리 흐름 이해 (Controller → Service → Repository → Entity)
 - MySQL과 연동하여 간단한 CRUD 기능 구현
-
+- Spring Boot를 활용한 게시판 및 댓글 기능 개발
 ---
 
 ## 📌 학습 내용
