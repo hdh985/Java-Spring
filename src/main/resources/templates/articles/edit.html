@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 수정</title>
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #e6ecf0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 60px auto;
+            background-color: #ffffff;
+            padding: 30px 24px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1da1f2;
+            font-size: 24px;
+            margin-bottom: 24px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+            color: #495057;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #1da1f2;
+            box-shadow: 0 0 0 2px rgba(29,161,242,0.3);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #1da1f2;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0d95e8;
+        }
+
+        .cancel {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            color: #657786;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .cancel:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                margin: 30px 16px;
+                padding: 24px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>게시글 수정</h1>
+
+    <form th:action="@{|/articles/update|}" method="post">
+        <label for="title">제목</label>
+        <input type="text" id="title" name="title" th:value="${article.title}" required>
+
+        <label for="content">내용</label>
+        <textarea id="content" name="content" rows="10" th:text="${article.content}" required></textarea>
+
+        <input type="hidden" name="id" th:value="${article.id}">
+
+        <button type="submit">✏️ 수정 완료</button>
+    </form>
+
+    <a th:href="@{|/articles/${article.id}|}" class="cancel">⬅️ 돌아가기</a>
+</div>
+
+</body>
+</html>

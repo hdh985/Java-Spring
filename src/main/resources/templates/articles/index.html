@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>커뮤니티 피드</title>
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #e6ecf0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 0 16px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1da1f2;
+            margin-bottom: 20px;
+        }
+
+        .post-card {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+            transition: box-shadow 0.2s;
+        }
+
+        .post-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .post-title {
+            font-weight: bold;
+            font-size: 18px;
+            color: #14171a;
+            margin-bottom: 8px;
+        }
+
+        .post-content {
+            color: #555;
+            font-size: 15px;
+            margin-bottom: 12px;
+            white-space: pre-line;
+        }
+
+        .post-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .view-button {
+            background-color: #1da1f2;
+            color: white;
+            padding: 6px 12px;
+            font-size: 14px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .view-button:hover {
+            background-color: #0d8ddb;
+        }
+
+        .write-button {
+            display: block;
+            width: fit-content;
+            margin: 20px auto;
+            background-color: #17bf63;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 15px;
+            transition: background-color 0.2s;
+        }
+
+        .write-button:hover {
+            background-color: #128c4e;
+        }
+
+        /* 댓글 입력 폼 스타일 */
+        .comment-form {
+            margin-top: 12px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .comment-form textarea {
+            resize: vertical;
+            min-height: 60px;
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .comment-form button {
+            align-self: flex-end;
+            background-color: #1da1f2;
+            color: white;
+            padding: 6px 12px;
+            border: none;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .comment-form button:hover {
+            background-color: #0d8ddb;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🗨️ 커뮤니티 피드</h1>
+
+    <div class="post-card" th:each="article : ${articleList}">
+        <div class="post-title" th:text="${article.title}">제목</div>
+        <div class="post-content" th:text="${article.content}">내용</div>
+        <div class="post-actions">
+            <a th:href="@{'/articles/' + ${article.id}}" class="view-button">상세 보기</a>
+        </div>
+
+        <div class="comment-section" th:if="${article.commentList != null}">
+            <div class="comment" th:each="comment : ${article.commentList}" style="padding: 6px 0; border-top: 1px solid #ddd;">
+                <div style="font-weight: bold;" th:text="${comment.nickname}">작성자</div>
+                <div style="white-space: pre-line;" th:text="${comment.body}">댓글 내용</div>
+            </div>
+        </div>
+
+        <!-- 댓글 입력 섹션 -->
+        <form th:action="@{'/articles/' + ${article.id} + '/comments'}" method="post" class="comment-form">
+            <textarea name="commentContent" placeholder="댓글을 입력하세요"></textarea>
+            <!-- DTO 입력 부분 시작 -->
+            <!-- 예: <input type="hidden" name="writerId" th:value="${userId}" /> -->
+            <input type="hidden" name="nickname" th:value="${nickname}" />
+            <input type="hidden" name="body" th:value="${body}" />
+            <!-- DTO 입력 부분 끝 -->
+            <button type="submit">댓글 작성</button>
+        </form>
+    </div>
+
+    <a th:href="@{/articles/new}" class="write-button">➕ 새 글 작성</a>
+</div>
+
+</body>
+</html>
